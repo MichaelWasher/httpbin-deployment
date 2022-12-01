@@ -1,0 +1,12 @@
+namespace: httpbin
+
+resources:
+  # Deployment
+  - deployment/deployment.yaml
+  - deployment/svc.yaml
+  - deployment/route.yaml
+  # DaemonSet
+  - daemonset/daemonset.yaml
+  - daemonset/svc.yaml
+  - daemonset/route.yaml
+

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: daemonset-example
+  name: daemonset-example
+spec:
+  selector:
+    matchLabels:
+      app: daemonset-example
+  template:
+    metadata:
+      labels:
+        app: daemonset-example
+    spec:
+      containers:
+      - image: quay.io/mwasher/httpbin
+        imagePullPolicy: Always
+        command: ["gunicorn", "-b", "0.0.0.0:8080", "httpbin:app", "-k", "gevent"]
+        name: httpbin
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        ports:
+        - containerPort: 80
+          name: http
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      terminationGracePeriodSeconds: 30
